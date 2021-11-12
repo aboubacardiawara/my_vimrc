@@ -7,8 +7,11 @@ call plug#begin('~/.vim/plugged')
 " Use release branch (recommend)
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
-" Or build from source code by using yarn: https://yarnpkg.com
-Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lockfile'}
+" " Or build from source code by using yarn: https://yarnpkg.com
+" Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lockfile'}
+
+"preview colors
+Plug 'ap/vim-css-color'
 
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 
@@ -49,7 +52,19 @@ Plug 'preservim/nerdcommenter'
 " post install (yarn install | npm install) then load plugin only for editing supported files
 Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
 
-" Plug 'metakirby5/codi.vim'
+Plug 'metakirby5/codi.vim'
+
+" vim-plug
+Plug 'hasufell/ghcup.vim'
+
+Plug 'autozimu/LanguageClient-neovim', {
+    \ 'branch': 'next',
+    \ 'do': './install.sh'
+    \ }
+
+"A grammar checker in Vim for English, French, German, etc.
+Plug 'dpelle/vim-LanguageTool'
+
 
 " Initialize plugin system
 call plug#end()
@@ -92,10 +107,9 @@ let g:NERDTreeGitStatusWithFlags = 1
             "\ "Ignored"   : "#808080"
             "\ }
 " Start NERDTree and put the cursor back in the other window.
-autocmd VimEnter * NERDTree | wincmd p
+" autocmd VimEnter * NERDTree | wincmd p
 " Open the existing NERDTree on each new tab.
-
-autocmd BufWinEnter * silent NERDTreeMirror
+" autocmd BufWinEnter * silent NERDTreeMirror
 
 " Exit Vim if NERDTree is the only window left.
 autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() |
@@ -299,7 +313,7 @@ let g:NERDTrimTrailingWhitespace = 1
 let g:NERDToggleCheckAllLines = 1
 
 
-nmap <C-s> <Plug>MarkdownPreview
+nmap <C-m> <Plug>MarkdownPreview
 
 " Change the color
 "highlight CodiVirtualText guifg=cyan
@@ -319,10 +333,10 @@ nmap <C-s> <Plug>MarkdownPreview
 inoremap iio <Esc>
  
 " TAB in general mode will move to text buffer
-nnoremap <TAB> :bnext<CR>
+nnoremap <TAB> gt<CR>
 " SHIFT-TAB will go back
-nnoremap <S-TAB> :bprevious<CR>
-" Use alt + hjkl to resize windows
+nnoremap <S-TAB> <C-w><C-w> <CR>
+" s Use alt + hjkl to resize windows
 nnoremap <C-j>    :resize -2<CR>
 nnoremap <C-k>    :resize +2<CR>
 nnoremap <C-h>    :vertical resize -2<CR>
@@ -330,3 +344,31 @@ nnoremap <C-l>    :vertical resize +2<CR>
 nnoremap <C-n>    :NERDTreeClose<CR>
 
 nnoremap <S-n>    :NERDTree<CR>
+set laststatus=2                    " Always show status line
+set statusline=%f\                  " Show filename
+set statusline+=%h%w%m%r\           " Show flags
+set statusline+=%=                  " Align right
+set statusline+=%(%l:%c%V\ %=\ %P%) " Show ruler
+
+
+" copy
+vnoremap <C-c> "*y 
+
+
+" open ghcup in the current buffer
+nnoremap <Leader>g :GHCup<CR>
+
+
+" prettier
+nnoremap <C-p>    :Prettier <CR>
+
+
+set nocompatible
+filetype plugin on
+let g:languagetool_jar='$HOME/LanguageTool-5.2/languagetool-commandline.jar'
+
+let g:languagetool_lang='fr'
+let g:languagetool_enable_rules='PASSIVE_VOICE'
+let g:languagetool_win_height=14 
+
+nnoremap <C-=>    :LanguageToolClear <CR>
