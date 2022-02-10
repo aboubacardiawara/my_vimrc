@@ -65,7 +65,7 @@ Plug 'autozimu/LanguageClient-neovim', {
 "A grammar checker in Vim for English, French, German, etc.
 Plug 'dpelle/vim-LanguageTool'
 
-
+Plug 'Wafelack/vim-ghci'
 " Initialize plugin system
 call plug#end()
 set encoding=UTF-8
@@ -330,7 +330,6 @@ nmap <C-m> <Plug>MarkdownPreview
 "                 \ 'rightalign': 0,
 "                 \ },
                 " \ }
-inoremap iio <Esc>
  
 " TAB in general mode will move to text buffer
 nnoremap <TAB> gt<CR>
@@ -364,7 +363,7 @@ nnoremap <C-p>    :Prettier <CR>
 
 
 set nocompatible
-filetype plugin on
+" filetype plugin on
 let g:languagetool_jar='$HOME/LanguageTool-5.2/languagetool-commandline.jar'
 
 let g:languagetool_lang='fr'
@@ -372,3 +371,47 @@ let g:languagetool_enable_rules='PASSIVE_VOICE'
 let g:languagetool_win_height=14 
 
 nnoremap <C-=>    :LanguageToolClear <CR>
+
+" set term=screen-256color
+execute pathogen#infect('~/.vim/bundle/{}')
+syntax on
+filetype plugin indent on
+
+
+
+" haskell :
+
+" let g:haskell_enable_quantification = 1   " to enable highlighting of `forall`
+" let g:haskell_enable_recursivedo = 1      " to enable highlighting of `mdo` and `rec`
+" let g:haskell_enable_arrowsyntax = 1      " to enable highlighting of `proc`
+" let g:haskell_enable_pattern_synonyms = 1 " to enable highlighting of `pattern`
+" let g:haskell_enable_typeroles = 1        " to enable highlighting of type roles
+" let g:haskell_enable_static_pointers = 1  " to enable highlighting of `static`
+" let g:haskell_backpack = 1                " to enable highlighting of backpack keywords
+
+let g:haskell_classic_highlighting = 1
+" nnoremap <silent><S-Up> :let save_a=@a<Cr><Up>"add"ap<Up>:let @a=save_a<Cr>
+" nnoremap <silent><S-Down> :let save_a=@a<Cr>"add"ap:let @a=save_a<Cr>
+
+set hlsearch
+set incsearch
+nnoremap  <C-D> :set relativenumber <CR>
+nnoremap  <C-F> :set norelativenumber <CR>
+
+
+inoremap jj <esc>
+noremap <Up> <Nop>
+noremap <Down> <Nop>
+noremap <Left> <Nop>
+noremap <Right> <Nop>
+" Alt-J et Alt-K pour déplacer la ligne courante en mode normal
+nmap <M-J> mz:m+<CR>'z
+nmap <M-K> mz:m-2<CR>'z
+" Alt-J et Alt-K pour déplacer un block de lignes en mode Visual
+vmap <M-J> :m'>+<CR>'<my'>mzgv'yo'z
+vmap <M-K> :m'<-2'><CR>my'<mzgv'yo'z
+
+"Insert a newline without entering in insert mode
+" nmap oo o<Esc>k
+" nmap OO O<Esc>j
+runtime ftplugin/man.vim
