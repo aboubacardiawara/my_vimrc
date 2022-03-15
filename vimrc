@@ -66,6 +66,10 @@ Plug 'autozimu/LanguageClient-neovim', {
 Plug 'dpelle/vim-LanguageTool'
 
 Plug 'Wafelack/vim-ghci'
+
+"Interactive Coq Proofs in Vim
+Plug 'whonore/Coqtail'
+
 " Initialize plugin system
 call plug#end()
 set encoding=UTF-8
@@ -415,3 +419,15 @@ vmap <M-K> :m'<-2'><CR>my'<mzgv'yo'z
 " nmap oo o<Esc>k
 " nmap OO O<Esc>j
 runtime ftplugin/man.vim
+
+
+"Coq shortcuts
+map <leader>CI <Plug>CoqInterrupt
+map <leader>CC <Plug>CoqStart
+map <leader>CQ <Plug>CoqStop
+map <leader>cj <Plug>CoqNext
+map <leader>ck <Plug>CoqUndo
+
+
+" Coq-Platform-8.14~2022.01.app
+
